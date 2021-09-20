@@ -37,7 +37,7 @@ namespace fluentVal.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<WeatherForecast> Post(WeatherForecast weatherForecast)
+        public IEnumerable<WeatherForecast> Post(WeatherForecast1 weatherForecast)
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
