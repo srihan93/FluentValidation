@@ -1,5 +1,6 @@
 using FluentValidation;
 using System;
+using System.Text.Json.Serialization;
 
 namespace fluentVal
 {
@@ -24,7 +25,7 @@ namespace fluentVal
 
         public string Summary { get; set; }
 
-        public CustomEnum customEnum { get; set; }
+        public string customEnum { get; set; }
         public int age { get; set; }
         public int classes { get; set; }
     }
@@ -37,7 +38,7 @@ namespace fluentVal
             RuleFor(p => p.Date).GreaterThanOrEqualTo(DateTime.Now.AddDays(-1)).WithMessage("Date cannot be greater than current date and Lesser current date-10days").LessThanOrEqualTo(DateTime.Now).WithMessage("Date cannot be greater than current date and Lesser current date-10days");
 
             //Enum
-            RuleFor(p => p.customEnum).IsInEnum();
+            RuleFor(p => p.customEnum).NotEmpty().NotNull().Must(x => Enum.IsDefined(typeof(CustomEnum), x));
 
             //range
             RuleFor(p => p.age).InclusiveBetween(0, 100);
