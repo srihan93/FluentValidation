@@ -28,6 +28,13 @@ namespace fluentVal
         public string customEnum { get; set; }
         public int age { get; set; }
         public int classes { get; set; }
+        public child c { get; set; }
+    }
+
+    public class child
+    {
+        public int id { get; set; }
+        public string value { get; set; }
     }
 
     public class WeatherValidator : AbstractValidator<WeatherForecast1>
@@ -43,6 +50,9 @@ namespace fluentVal
             //range
             RuleFor(p => p.age).InclusiveBetween(0, 100);
             RuleFor(p => p.classes).ExclusiveBetween(0, 13);
+
+            //child validator
+            RuleFor(p => p.c.id).NotNull().InclusiveBetween(1, 10).When(c => c.c != null);
         }
     }
 }
