@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +32,8 @@ namespace fluentVal
             {
                 s.RegisterValidatorsFromAssemblyContaining<Startup>();
                 s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-            }); ;
+            });
+            services.AddProblemDetails();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "fluentVal", Version = "v1" });
@@ -47,7 +49,7 @@ namespace fluentVal
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "fluentVal v1"));
             }
-
+            app.UseProblemDetails();
             app.UseHttpsRedirection();
 
             app.UseRouting();
