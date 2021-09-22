@@ -55,7 +55,7 @@ namespace fluentVal
             RuleFor(p => p.c.id).NotNull().InclusiveBetween(1, 10).When(c => c.c != null);
 
             //Balance Validator
-            RuleFor(p => p).Must(x => (x.age + x.classes) > 10).WithMessage("Alleast one balance required");
+            RuleFor(p => p).Must(x => (x.age + x.classes) > 10).WithMessage("Atleast one balance required").OverridePropertyName("Total Balance");
         }
     }
 }
